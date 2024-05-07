@@ -1,6 +1,8 @@
 html,
 body {
   height: 100%;
+  padding-top: 4px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .modal {
@@ -32,8 +34,9 @@ body {
 
 .actions {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
+  justify-content: space-between;
   button {
     border: 0;
     background: #eb2042;
@@ -42,13 +45,23 @@ body {
     font-size: 0.8rem;
     line-height: 1;
   }
+  .success {
+    background: #149f2b;
+  }
 }
 
 .category-list {
   width: 200px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
 }
 
 .category {
+  width: 180px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  padding: 8px;
 }
 
 .item-list {
