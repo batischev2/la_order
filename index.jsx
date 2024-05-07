@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react'
+import { createRoot } from 'react-dom/client'
+
 const Modal = ({ children }) => {
   const closeModal = () => {
     modal.style.display = 'none'
@@ -20,9 +23,9 @@ const Modal = ({ children }) => {
 }
 
 const CategoryList = () => {
-  const [categories, setCategories] = React.useState([])
+  const [categories, setCategories] = useState([])
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/albums')
       .then((response) => response.json())
       .then((items) => setCategories(items.slice(0, 10)))
@@ -42,9 +45,9 @@ const Category = ({ name }) => {
 }
 
 const ItemList = () => {
-  const [items, setItems] = React.useState([])
+  const [items, setItems] = useState([])
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/photos')
       .then((response) => response.json())
       .then((items) => setItems(items.slice(0, 10)))
@@ -91,7 +94,7 @@ const Shop = () => {
 
 const button = document.getElementById('button')
 const modal = document.getElementById('root')
-const root = ReactDOM.createRoot(modal)
+const root = createRoot(modal)
 
 button.onclick = function () {
   modal.style.display = 'block'
