@@ -8,6 +8,9 @@ export const Item = ({ name, photo, price }) => {
       <div className='flex-column'>
         <div>{price} р.</div>
         <button>добавить в чек</button>
+        <div>
+          <input type='number' placeholder='кол-во товара' width={50}></input>
+        </div>
       </div>
     </div>
   )

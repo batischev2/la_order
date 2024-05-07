@@ -1,17 +1,35 @@
-export const Modal = ({ children, closeModal, saveState }) => {
+export const Modal = ({
+  children,
+  closeModal,
+  saveState,
+  resetOrder,
+  title,
+  totalPrice
+}) => {
   return (
     <div className='modal' id='modal'>
       <div className='content'>
         <div className='actions'>
-          <button className='toggle-button success' onClick={() => saveState()}>
-            Готово
-          </button>
+          <h2>{title}</h2>
+          <div>
+            Итоговая стоимость товаров: <b>{totalPrice}</b> р.
+          </div>
           <button className='toggle-button' onClick={() => closeModal()}>
             X
           </button>
         </div>
-        <h2>Заказ товара</h2>
         <div className='main'>{children}</div>
+        <div className='footer'>
+          <button
+            className='toggle-button warning'
+            onClick={() => resetOrder()}
+          >
+            Сброс
+          </button>
+          <button className='toggle-button success' onClick={() => saveState()}>
+            Готово
+          </button>
+        </div>
       </div>
     </div>
   )

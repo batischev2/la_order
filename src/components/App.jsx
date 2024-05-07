@@ -8,16 +8,27 @@ export const App = () => {
   const [categories, setCategories] = useState([])
   const [activeCategory, setActiveCategory] = useState(null)
   const [items, setItems] = useState([])
+  const [basketItems, setBasketItems] = useState([])
 
   useEffect(() => {
+    // список категорий
     fetch('https://jsonplaceholder.typicode.com/albums')
       .then((response) => response.json())
-      .then((items) => setCategories(items.slice(0, 10)))
-
-    fetch('https://jsonplaceholder.typicode.com/photos')
-      .then((response) => response.json())
-      .then((items) => setItems(items.slice(0, 10)))
+      .then((items) => {
+        setActiveCategory(items[0].id)
+        setCategories(items)
+      })
   }, [])
+
+  useEffect(() => {
+    if (!activeCategory) return
+    // запрос товаров по категории
+    fetch(
+      `https://jsonplaceholder.typicode.com/albums/${activeCategory}/photos`
+    )
+      .then((response) => response.json())
+      .then((items) => setItems(items))
+  }, [activeCategory])
 
   const modal = document.getElementById('root')
 
@@ -27,6 +38,7 @@ export const App = () => {
   }
 
   const saveState = () => {
+    // отправка заказа
     fetch('https://jsonplaceholder.typicode.com/albums')
       .then((response) => response.json())
       .then(() => {
@@ -35,15 +47,30 @@ export const App = () => {
       })
   }
 
+  const resetOrder = () => {
+    setBasketItems([])
+  }
+
   return (
     <ErrorBoundary>
-      <Modal closeModal={closeModal} saveState={saveState}>
-        <CategoryList
-          categories={categories}
-          activeCategory={activeCategory}
-          setActiveCategory={setActiveCategory}
-        />
-        <ItemList items={items} />
+      <Modal
+        closeModal={closeModal}
+        saveState={saveState}
+        resetOrder={resetOrder}
+        title={'Заказ товара'}
+        totalPrice={basketItems.reduce(
+          (item, accumulator) => accumulator + item.price,
+          0
+        )}
+      >
+        {categories && (
+          <CategoryList
+            categories={categories}
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+          />
+        )}
+        {items && <ItemList items={items} />}
       </Modal>
     </ErrorBoundary>
   )

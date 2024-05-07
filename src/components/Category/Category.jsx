@@ -1,3 +1,10 @@
-export const Category = ({ name, active }) => {
-  return <div className={'category' + active ? ' active' : ''}>{name}</div>
+export const Category = ({ id, name, active, setActiveCategory }) => {
+  return (
+    <div
+      onClick={() => setActiveCategory(id)}
+      className={`category ${active ? 'active' : ''}`}
+    >
+      {name}
+    </div>
+  )
 }
