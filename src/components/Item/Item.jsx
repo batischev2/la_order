@@ -6,11 +6,11 @@ export const Item = ({ name, photo, price }) => {
         <div className='text'>{name}</div>
       </div>
       <div className='flex-column'>
-        <div>{price} р.</div>
-        <button>добавить в чек</button>
-        <div>
-          <input type='number' placeholder='кол-во товара' width={50}></input>
+        <div className='flex-row'>
+          <div>{price} р.</div>
+          <input type='number' min={0} defaultValue={0}></input>
         </div>
+        <button>добавить в чек</button>
       </div>
     </div>
   )
