@@ -30,7 +30,7 @@ export const App = () => {
       .then((items) => setItems(items))
   }, [activeCategory])
 
-  const modal = document.getElementById('root')
+  const modal = document.getElementById('check-root')
 
   const closeModal = () => {
     modal.style.display = 'none'
