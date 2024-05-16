@@ -1,50 +1,29 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
-import { createAppSlice } from '../../app/createAppSlice'
+import { createSlice } from '@reduxjs/toolkit'
 
 export interface CategorySliceState {
-  value: number
-  status: 'idle' | 'loading' | 'failed'
+  id: number
+  title: string
 }
 
 const initialState: CategorySliceState = {
-  value: 0,
-  status: 'idle'
+  id: 0,
+  title: ''
 }
 
-// If you are not using async thunks you can use the standalone `createSlice`.
-export const categorySlice = createAppSlice({
+export const categorySlice = createSlice({
   name: 'category',
-  // `createSlice` will infer the state type from the `initialState` argument
   initialState,
-  // The `reducers` field lets us define reducers and generate associated actions
-  reducers: (create) => ({
-    increment: create.reducer((state) => {
-      // Redux Toolkit allows us to write "mutating" logic in reducers. It
-      // doesn't actually mutate the state because it uses the Immer library,
-      // which detects changes to a "draft state" and produces a brand new
-      // immutable state based off those changes
-      state.value += 1
-    }),
-    decrement: create.reducer((state) => {
-      state.value -= 1
-    }),
-    // Use the `PayloadAction` type to declare the contents of `action.payload`
-    incrementByAmount: create.reducer(
-      (state, action: PayloadAction<number>) => {
-        state.value += action.payload
-      }
-    )
-  }),
-  // You can define your selectors here. These selectors receive the slice
-  // state as their first argument.
+  reducers: {
+    setCategory: (state, action) => {
+      state = action.payload
+    }
+  },
   selectors: {
-    selectCount: (counter) => counter.value,
-    selectStatus: (counter) => counter.status
+    selectId: (category) => category.id,
+    selectTitle: (category) => category.title
   }
 })
 
-// Action creators are generated for each case reducer function.
-export const { decrement, increment, incrementByAmount } = categorySlice.actions
+export const { setCategory } = categorySlice.actions
 
-// Selectors returned by `slice.selectors` take the root state as their first argument.
-export const { selectCount, selectStatus } = categorySlice.selectors
+export const { selectId, selectTitle } = categorySlice.selectors
