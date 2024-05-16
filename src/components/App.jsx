@@ -1,34 +1,41 @@
 import { useState, useEffect } from 'react'
+
 import { CategoryList } from './Category/CategoryList'
 import { ItemList } from './Item/ItemList'
 import { Modal } from './Modal'
 import { ErrorBoundary } from './ErrorBoundary'
 
+import { setCategory } from '../features/category/categorySlice'
+import { useAppDispatch, useAppSelector } from '../app/hooks'
+
 export const App = (props) => {
   const [categories, setCategories] = useState([])
-  const [activeCategory, setActiveCategory] = useState(null)
   const [items, setItems] = useState([])
   const [basketItems, setBasketItems] = useState([])
+
+  const dispatch = useAppDispatch()
+  const count = useAppSelector((state) => state.counter.value)
+
 
   useEffect(() => {
     // список категорий
     fetch('https://jsonplaceholder.typicode.com/albums')
       .then((response) => response.json())
       .then((items) => {
-        if (items) setActiveCategory(items[0].id)
+        if (items) dispatch(setCategory(items[0]))
         setCategories(items)
       })
   }, [])
 
-  useEffect(() => {
-    if (!activeCategory) return
-    // запрос товаров по категории
-    fetch(
-      `https://jsonplaceholder.typicode.com/albums/${activeCategory}/photos`
-    )
-      .then((response) => response.json())
-      .then((items) => setItems(items))
-  }, [activeCategory])
+  // useEffect(() => {
+  //   if (!activeCategory) return
+  //   // запрос товаров по категории
+  //   fetch(
+  //     `https://jsonplaceholder.typicode.com/albums/${activeCategory}/photos`
+  //   )
+  //     .then((response) => response.json())
+  //     .then((items) => setItems(items))
+  // }, [activeCategory])
 
   const modal = document.getElementById('check-root')
 
@@ -67,8 +74,6 @@ export const App = (props) => {
         {categories && (
           <CategoryList
             categories={categories}
-            activeCategory={activeCategory}
-            setActiveCategory={setActiveCategory}
           />
         )}
         {items && <ItemList items={items} />}
