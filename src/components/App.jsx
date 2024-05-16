@@ -4,7 +4,7 @@ import { ItemList } from './Item/ItemList'
 import { Modal } from './Modal'
 import { ErrorBoundary } from './ErrorBoundary'
 
-export const App = () => {
+export const App = (props) => {
   const [categories, setCategories] = useState([])
   const [activeCategory, setActiveCategory] = useState(null)
   const [items, setItems] = useState([])
@@ -15,7 +15,7 @@ export const App = () => {
     fetch('https://jsonplaceholder.typicode.com/albums')
       .then((response) => response.json())
       .then((items) => {
-        setActiveCategory(items[0].id)
+        if (items) setActiveCategory(items[0].id)
         setCategories(items)
       })
   }, [])
@@ -43,6 +43,7 @@ export const App = () => {
       .then((response) => response.json())
       .then(() => {
         modal.style.display = 'none'
+        console.log(props.orderId, props.checkId)
         // clear state
       })
   }

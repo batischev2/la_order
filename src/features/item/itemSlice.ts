@@ -1,19 +1,19 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createAppSlice } from '../../app/createAppSlice'
 
-export interface CounterSliceState {
+export interface ItemSliceState {
   value: number
   status: 'idle' | 'loading' | 'failed'
 }
 
-const initialState: CounterSliceState = {
+const initialState: ItemSliceState = {
   value: 0,
   status: 'idle'
 }
 
 // If you are not using async thunks you can use the standalone `createSlice`.
-export const counterSlice = createAppSlice({
-  name: 'counter',
+export const itemSlice = createAppSlice({
+  name: 'item',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   // The `reducers` field lets us define reducers and generate associated actions
@@ -38,13 +38,13 @@ export const counterSlice = createAppSlice({
   // You can define your selectors here. These selectors receive the slice
   // state as their first argument.
   selectors: {
-    selectCount: (counter) => counter.value,
-    selectStatus: (counter) => counter.status
+    selectCount: (item) => item.value,
+    selectStatus: (item) => item.status
   }
 })
 
 // Action creators are generated for each case reducer function.
-export const { decrement, increment, incrementByAmount } = counterSlice.actions
+export const { decrement, increment, incrementByAmount } = itemSlice.actions
 
 // Selectors returned by `slice.selectors` take the root state as their first argument.
-export const { selectCount, selectStatus } = counterSlice.selectors
+export const { selectCount, selectStatus } = itemSlice.selectors
