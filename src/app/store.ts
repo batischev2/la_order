@@ -1,13 +1,31 @@
+import type { Action, ThunkAction } from '@reduxjs/toolkit'
 import { combineSlices, configureStore } from '@reduxjs/toolkit'
+import { setupListeners } from '@reduxjs/toolkit/query'
+import { basketSlice } from '../features/item/basketSlice'
 
-import { itemSlice } from '../features/item/itemSlice'
-import { categorySlice } from '../features/category/categorySlice'
+const rootReducer = combineSlices(basketSlice)
 
-const rootReducer = combineSlices(itemSlice, categorySlice)
+export type RootState = ReturnType<typeof rootReducer>
 
-export const store = configureStore({
-  reducer: rootReducer
-})
+export const makeStore = (preloadedState?: Partial<RootState>) => {
+  const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => {
+      return getDefaultMiddleware()
+    },
+    preloadedState
+  })
+  setupListeners(store.dispatch)
+  return store
+}
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
+export const store = makeStore()
+
+export type AppStore = typeof store
+export type AppDispatch = AppStore['dispatch']
+export type AppThunk<ThunkReturnType = void> = ThunkAction<
+  ThunkReturnType,
+  RootState,
+  unknown,
+  Action
+>

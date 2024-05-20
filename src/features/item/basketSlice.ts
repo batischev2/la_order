@@ -6,18 +6,19 @@ export interface Item {
   title: string
   url: string
   count: number
+  price: number
 }
 
 const initialState = [] as Item[]
 
-export const itemSlice = createAppSlice({
-  name: 'item',
+export const basketSlice = createAppSlice({
+  name: 'basket',
   initialState,
   reducers: {
-    addToBasket: (state, action: PayloadAction<Item>) => {
+    addItem: (state, action: PayloadAction<Item>) => {
       state.push(action.payload)
     },
-    removeFromBasket: (state, action: PayloadAction<Item>) => {
+    removeItem: (state, action: PayloadAction<Item>) => {
       const index = state.findIndex((item) => item.id === action.payload.id)
       state.splice(index, 1)
     },
@@ -28,14 +29,19 @@ export const itemSlice = createAppSlice({
     decrement: (state, action: PayloadAction<Item>) => {
       const index = state.findIndex((item) => item.id === action.payload.id)
       state[index].count--
+    },
+    reset: (state) => {
+      state = initialState
     }
   },
   selectors: {
-    selectById: (state, id) => state.find((item) => item.id === id)
+    selectById: (state, id) => state.find((item) => item.id === id),
+    totalPrice: (state) =>
+      state.reduce((accumulator, item) => accumulator + item.price, 0)
   }
 })
 
-export const { decrement, increment, addToBasket, removeFromBasket } =
-  itemSlice.actions
+export const { decrement, increment, addItem, removeItem, reset } =
+  basketSlice.actions
 
-export const { selectById } = itemSlice.selectors
+export const { selectById, totalPrice } = basketSlice.selectors
