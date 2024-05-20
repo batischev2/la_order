@@ -25,8 +25,6 @@ export const Modal = ({ children, title, ...props }) => {
       })
   }
 
-  console.log(price)
-
   return (
     <div className='modal' id='modal'>
       <div className='content'>
