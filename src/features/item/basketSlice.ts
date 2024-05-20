@@ -31,13 +31,16 @@ export const basketSlice = createAppSlice({
       state[index].count--
     },
     reset: (state) => {
-      state = initialState
+      return initialState
     }
   },
   selectors: {
     selectById: (state, id) => state.find((item) => item.id === id),
     totalPrice: (state) =>
-      state.reduce((accumulator, item) => accumulator + item.price, 0)
+      state.reduce(
+        (accumulator, item) => accumulator + item.price * item.count,
+        0
+      )
   }
 })
 

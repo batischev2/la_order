@@ -7,6 +7,8 @@ export const Modal = ({ children, title, ...props }) => {
 
   const modal = document.getElementById('check-root')
 
+  if (!modal) return null
+
   const closeModal = () => {
     modal.style.display = 'none'
     dispatch(reset())
