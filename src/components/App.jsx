@@ -5,13 +5,14 @@ import { ItemList } from './Item/ItemList'
 import { Modal } from './Modal'
 import { ErrorBoundary } from './ErrorBoundary'
 
-export const App = (props) => {
+export const App = ({ companyId, ...props }) => {
   const [categories, setCategories] = useState([])
   const [items, setItems] = useState([])
   const [activeCategory, setActiveCategory] = useState(0)
 
   useEffect(() => {
     // список категорий
+    // fetch(`https://check.itguild.info/api/category?company_id=${companyId}`)
     fetch('https://jsonplaceholder.typicode.com/albums')
       .then((response) => response.json())
       .then((items) => {
@@ -24,7 +25,8 @@ export const App = (props) => {
     if (!activeCategory) return
     // запрос товаров по категории
     fetch(
-      `https://jsonplaceholder.typicode.com/albums/${activeCategory}/photos`
+    //   `https://check.itguild.info/api/product?company_id=${companyId}&category_id=${activeCategory}`
+    `https://jsonplaceholder.typicode.com/albums/${activeCategory}/photos`
     )
       .then((response) => response.json())
       .then((items) => setItems(items))

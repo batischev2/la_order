@@ -10,14 +10,14 @@ const container = document.getElementById('check-root')
 const root = createRoot(container)
 
 // получение data-аттрибутов с кнопки
-const { orderId, checkId } = button.dataset
+const { orderId, checkId, companyId } = button.dataset
 
 button.onclick = function () {
   container.style.display = 'block'
   root.render(
     <React.StrictMode>
       <Provider store={store}>
-        <App orderId={orderId} checkId={checkId} />
+        <App orderId={orderId} checkId={checkId} companyId={companyId} />
       </Provider>
     </React.StrictMode>
   )

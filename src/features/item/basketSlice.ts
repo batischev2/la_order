@@ -30,7 +30,7 @@ export const basketSlice = createAppSlice({
       const index = state.findIndex((item) => item.id === action.payload.id)
       state[index].count--
     },
-    reset: (state) => {
+    reset: () => {
       return initialState
     }
   },
