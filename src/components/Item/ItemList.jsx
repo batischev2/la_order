@@ -6,6 +6,7 @@ export const ItemList = ({ items }) => {
       {items.map((item, index) => (
         <Item
           id={item.id}
+          categoryId={item.albumId}
           name={item.title}
           photo={item.url}
           price={500}

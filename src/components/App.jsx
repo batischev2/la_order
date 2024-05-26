@@ -23,6 +23,7 @@ export const App = ({ companyId, ...props }) => {
 
   useEffect(() => {
     if (!activeCategory) return
+    setItems([])
     // запрос товаров по категории
     fetch(
     //   `https://check.itguild.info/api/product?company_id=${companyId}&category_id=${activeCategory}`

@@ -3,6 +3,7 @@ import { reset, totalPrice } from '../features/item/basketSlice'
 
 export const Modal = ({ children, title, ...props }) => {
   const dispatch = useAppDispatch()
+
   const price = useAppSelector(totalPrice)
 
   const modal = document.getElementById('check-root')
@@ -24,8 +25,6 @@ export const Modal = ({ children, title, ...props }) => {
         dispatch(reset())
       })
   }
-
-  console.log(price)
 
   return (
     <div className='modal' id='modal'>

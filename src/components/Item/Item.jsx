@@ -1,11 +1,17 @@
-import { useState } from 'react'
-import { useAppDispatch } from '../../app/hooks'
-import { addItem } from '../../features/item/basketSlice'
+import { useEffect, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '../../app/hooks'
+import { addItem, findById, removeItem } from '../../features/item/basketSlice'
 
-export const Item = ({ id, name, photo, price }) => {
+export const Item = ({ id, categoryId, name, photo, price }) => {
   const dispatch = useAppDispatch()
 
+  const isInBasket = useAppSelector(state => findById(state, id));
+
   const [value, setValue] = useState(0)
+
+  useEffect(() => {
+    if(isInBasket) setValue(isInBasket.count)
+  }, [])
 
   const handleChange = (event) => {
     setValue(event?.currentTarget?.value)
@@ -27,15 +33,20 @@ export const Item = ({ id, name, photo, price }) => {
             onChange={(value) => handleChange(value)}
           ></input>
         </div>
-        <button
-          onClick={() =>
-            dispatch(
-              addItem({ id, title: name, url: photo, price, count: value })
-            )
-          }
+        {isInBasket ? <button
+          onClick={() => {
+            dispatch(removeItem({ id }))
+            setValue(0)
+          }}
         >
-          добавить в чек
-        </button>
+          убрать из корзины
+        </button> : <button
+          disabled={!value}
+          onClick={() => dispatch(addItem({ id, categoryId, title: name, url: photo, price, count: value }))}
+        >
+          добавить в корзину
+        </button>}
+        
       </div>
     </div>
   )
