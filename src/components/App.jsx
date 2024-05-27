@@ -10,10 +10,11 @@ export const App = ({ companyId, ...props }) => {
   const [items, setItems] = useState([])
   const [activeCategory, setActiveCategory] = useState(0)
 
+  // TODO: rtk-query, preloader, adaptive
+
   useEffect(() => {
     // список категорий
-    // fetch(`https://check.itguild.info/api/category?company_id=${companyId}`)
-    fetch('https://jsonplaceholder.typicode.com/albums')
+    fetch(`https://check.itguild.info/api/category?company_id=${companyId}`)
       .then((response) => response.json())
       .then((items) => {
         if (items) setActiveCategory(items[0].id)
@@ -26,8 +27,7 @@ export const App = ({ companyId, ...props }) => {
     setItems([])
     // запрос товаров по категории
     fetch(
-    //   `https://check.itguild.info/api/product?company_id=${companyId}&category_id=${activeCategory}`
-    `https://jsonplaceholder.typicode.com/albums/${activeCategory}/photos`
+      `https://check.itguild.info/api/product?company_id=${companyId}&category_id=${activeCategory}`
     )
       .then((response) => response.json())
       .then((items) => setItems(items))

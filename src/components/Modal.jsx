@@ -31,10 +31,10 @@ export const Modal = ({ children, title, ...props }) => {
       <div className='content'>
         <div className='actions'>
           <h2>{title}</h2>
-          <div>
-            Итоговая стоимость товаров: <b>{price}</b> р.
+          <div className='sum'>
+            Итого: <b>{price}</b> р.
           </div>
-          <button className='toggle-button' onClick={() => closeModal()}>
+          <button className='toggle-button error' onClick={() => closeModal()}>
             X
           </button>
         </div>

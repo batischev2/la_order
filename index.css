@@ -23,6 +23,7 @@ body {
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
+  border-radius: 5px;
   width: 95%;
 }
 
@@ -40,13 +41,10 @@ body {
   justify-content: space-between;
   margin-top: -20px;
   margin-bottom: 10px;
-  button {
-    border: 0;
-    background: #eb2042;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-    line-height: 1;
+
+  .sum {
+    font-size: 20px;
+    padding-top: 3px;
   }
 }
 
@@ -57,24 +55,10 @@ body {
   justify-content: flex-end;
   column-gap: 10px;
   margin-top: 20px;
-  button {
-    border: 0;
-    background: #eb2042;
-    border-radius: 5px;
-    padding: 0.5rem 1rem;
-    font-size: 0.8rem;
-    line-height: 1;
-  }
-  .warning {
-    background: #9f9614;
-  }
-  .success {
-    background: #149f2b;
-  }
 }
 
 .category-list {
-  width: 250px !important;
+  width: 250px;
   display: flex;
   flex-direction: column;
   row-gap: 10px;
@@ -84,12 +68,14 @@ body {
 
 .category {
   width: 200px;
+  height: 30px;
   border: 1px solid #eee;
   border-radius: 5px;
   padding: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 
   span {
     display: flex;
@@ -100,6 +86,7 @@ body {
     height: 20px;
     min-width: 20px;
     border: 1px solid black;
+    font-size: 14px;
   }
 }
 
@@ -126,7 +113,7 @@ body {
   align-items: center;
   row-gap: 5px;
   width: 200px;
-  height: 275px;
+  max-height: 300px;
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 10px;
@@ -137,6 +124,8 @@ body {
     -webkit-line-clamp: 2;
     line-clamp: 2;
     -webkit-box-orient: vertical;
+    font-weight: 500;
+    font-size: 18px;
   }
 }
 
@@ -155,6 +144,59 @@ body {
   width: 100%;
 }
 
+.toggle-button.warning {
+  background: #ffae67;
+}
+.toggle-button.success {
+  background: #149f2b;
+}
+.toggle-button.error {
+  background: #eb2042;
+}
+
 input[type='number'] {
   width: 40px;
+}
+
+button {
+  border: 0;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  color: #666666;
+}
+
+@media (max-width: 450px) {
+  .content {
+    padding: 10px;
+    width: 90%;
+  }
+  .main {
+    flex-direction: column;
+    height: calc(100vh - 170px);
+    row-gap: 30px;
+  }
+  .category-list {
+    flex-direction: row;
+    column-gap: 10px;
+    width: 100%;
+    overflow-x: scroll;
+  }
+  .category {
+    width: auto;
+    min-width: 50px;
+    column-gap: 8px;
+    justify-content: center;
+  }
+  .item-list {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
 }

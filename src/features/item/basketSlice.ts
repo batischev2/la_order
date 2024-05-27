@@ -2,8 +2,8 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { createAppSlice } from '../../app/createAppSlice'
 
 export interface Item {
-  id: number,
-  categoryId: number,
+  id: number
+  categoryId: number
   title: string
   url: string
   count: number
@@ -37,7 +37,8 @@ export const basketSlice = createAppSlice({
   },
   selectors: {
     findById: (state, id) => state.find((item) => item.id === id),
-    itemsByCategory: (state, id) => state.filter((item) => item.categoryId === id).length,
+    itemsByCategory: (state, id) =>
+      state.filter((item) => item.categoryId === id).length,
     totalPrice: (state) =>
       state.reduce(
         (accumulator, item) => accumulator + item.price * item.count,

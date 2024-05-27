@@ -6,10 +6,10 @@ export const ItemList = ({ items }) => {
       {items.map((item, index) => (
         <Item
           id={item.id}
-          categoryId={item.albumId}
+          categoryId={item.product_category_id}
           name={item.title}
-          photo={item.url}
-          price={500}
+          photo={'https://m.media-amazon.com/images/I/313WTbqZeqL._AC_.jpg'}
+          price={item.price}
           key={index}
         />
       ))}
